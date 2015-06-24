@@ -1,0 +1,28 @@
+{
+    "name": "TimiTao/behat-wiremock-extension",
+    "description": "Behat extension for wiremock",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Kunicki",
+            "email": "kunicki.tomasz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "Behat/Behat": "3.0.*"
+    },
+    "require-dev": {
+        "symfony/process": "~2.1",
+        "phpunit/phpunit": "4.3.*"
+    },
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
