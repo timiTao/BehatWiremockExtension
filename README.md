@@ -42,6 +42,9 @@ We can define services and map files by:
 
 Look at this [wiremock.feature](https://github.com/timiTao/BehatWiremockExtension/blob/master/features/wiremock.feature)
 
+If you want this to test, will need recipe [Vagrant for BehatWiremockExtension](https://github.com/timiTao/VagrantBehatWiremockExtension) i tested over.
+Then run tests on ``server`` node. The IP is hard coded in recipe for test purpose.
+
 ## Versioning
 
 Staring version ``1.0.0``, will follow [Semantic Versioning v2.0.0](http://semver.org/spec/v2.0.0.html).
