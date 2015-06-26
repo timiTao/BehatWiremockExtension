@@ -1,5 +1,5 @@
 {
-    "name": "TimiTao/behat-wiremock-extension",
+    "name": "timitao/behat-wiremock-extension",
     "description": "Behat extension for wiremock",
     "minimum-stability": "dev",
     "license": "MIT",
