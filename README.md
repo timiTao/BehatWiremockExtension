@@ -1,13 +1,20 @@
 Behat Wiremock Extension
 ==============
 
+A Behat Extension that manage over [Wiremock](http://wiremock.org) as a test for API calls.
+
+Compatibility with Behat 3.0.*
+
+This extension helps configure remote server, when we need to take control over thirds part services.
+Over each scenario, the API will be automatically reset.
+
 ## Installing extension
 
 The easiest way to install is by using [Composer](https://getcomposer.org):
 
 ```bash
 $> curl -sS https://getcomposer.org/installer | php
-$> php composer.phar require timitao/behat-wiremock-extension='*'
+$> php composer.phar require timitao/behat-wiremock-extension='1.0.*'
 ```
 
 or composer.json
@@ -16,9 +23,24 @@ or composer.json
         "timitao/behat-wiremock-extension": "1.0.*"
     },
 
-## Examples
+## Configuration
 
-Look at this [base.feature](https://github.com/timiTao/BehatWiremockExtension/blob/master/features/base.feature)
+We can define services and map files by:
+
+    extensions:
+        Behat\WiremockExtension\ServiceContainer\Extension:
+            wiremock:
+                servers:
+                      client1:
+                            base_url: http://192.168.205.11
+                            mappings_path: %paths.base%/data/mapping.json
+                      client2:
+                            base_url: http://192.168.205.12
+                            mappings_path: %paths.base%/data/mapping2.json
+
+## Example
+
+Look at this [wiremock.feature](https://github.com/timiTao/BehatWiremockExtension/blob/master/features/wiremock.feature)
 
 ## Versioning
 
