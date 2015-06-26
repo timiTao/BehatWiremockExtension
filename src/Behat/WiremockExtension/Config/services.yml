@@ -1,0 +1,21 @@
+parameters:
+  wiremockextension.services.collection.class: "Behat\WiremockExtension\Collection\Collection"
+  wiremockextension.services.collection.factory.class: "Behat\WiremockExtension\Collection\Factory"
+  wiremockextension.subscriber.class: "Behat\WiremockExtension\Subscriber\Subscriber"
+
+services:
+  wiremockextension.services.collection.factory:
+    class: "%wiremockextension.services.collection.factory.class%"
+    arguments:
+      - "%wiremockextension.config%"
+
+  wiremockextension.services.collection:
+    class: "%wiremockextension.services.collection.class%"
+    factory: ["@wiremockextension.services.collection.factory", "factory"]
+
+  wiremockextension.subscriber:
+    class: "%wiremockextension.subscriber.class%"
+    arguments:
+      - "@wiremockextension.services.collection"
+    tags:
+      - { name: event_dispatcher.subscriber }

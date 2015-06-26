@@ -11,7 +11,8 @@
     ],
     "require": {
         "php": ">=5.4",
-        "Behat/Behat": "3.0.*"
+        "Behat/Behat": "3.0.*",
+        "guzzlehttp/guzzle": "4.*"
     },
     "require-dev": {
         "symfony/process": "~2.1",
