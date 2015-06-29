@@ -1,6 +1,5 @@
 <?php
 /**
- * This file is part of the Behat.
  * (c) Tomasz Kunicki <kunicki.tomasz@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -38,20 +37,33 @@ class Factory
     protected $collection;
 
     /**
+     * @var array
+     */
+    protected $builders;
+
+    /**
      * @param Collection $collection
      */
-    function __construct( Collection $collection)
+    public function __construct(Collection $collection)
     {
         $this->collection = $collection;
     }
 
+    /**
+     * @param string $name
+     * @param SubscriberBuilderInterface $builder
+     */
+    public function registerBuilder($name, SubscriberBuilderInterface $builder)
+    {
+        $this->builders[$name] = $builder;
+    }
 
     /**
      * @return EventSubscriberInterface
      */
     public function factory()
     {
-        return new Subscriber($this->collection);
+        return $this->builders['always']->build($this->collection);
     }
 
 } 

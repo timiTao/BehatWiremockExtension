@@ -1,6 +1,5 @@
 <?php
 /**
- * This file is part of the Behat.
  * (c) Tomasz Kunicki <kunicki.tomasz@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,15 +9,14 @@ namespace Behat\WiremockExtension\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Behat\WiremockExtension\Collection\Collection;
-use Behat\WiremockExtension\Service\ServiceInterface;
 use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
 
 /**
- * Class Subscriber
+ * Class AbstractSubscriber
  *
  * @package Behat\WiremockExtension\Subscriber
  */
-class Subscriber implements EventSubscriberInterface
+abstract class AbstractSubscriber implements EventSubscriberInterface
 {
     /**
      * @var Collection
@@ -46,12 +44,5 @@ class Subscriber implements EventSubscriberInterface
     /**
      * @param BeforeScenarioTested $event
      */
-    public function resetMapping(BeforeScenarioTested $event)
-    {
-        /** @var ServiceInterface $service */
-        foreach ($this->services as $service) {
-            $service->resetMapping();
-            $service->loadMappings();
-        }
-    }
+    abstract public function resetMapping(BeforeScenarioTested $event);
 }

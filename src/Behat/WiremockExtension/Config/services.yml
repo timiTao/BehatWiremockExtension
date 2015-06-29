@@ -1,8 +1,10 @@
 parameters:
   wiremockextension.services.collection.class: "Behat\WiremockExtension\Collection\Collection"
   wiremockextension.services.collection.factory.class: "Behat\WiremockExtension\Collection\Factory"
-  wiremockextension.subscriber.class: "Behat\WiremockExtension\Subscriber\Subscriber"
+  wiremockextension.subscriber.class: "Behat\WiremockExtension\Subscriber\AbstractSubscriber"
   wiremockextension.subscriber.factory.class: "Behat\WiremockExtension\Subscriber\Factory"
+  wiremockextension.subscriber.always.builder.class: "Behat\WiremockExtension\Subscriber\Always\SubscriberBuilder"
+  wiremockextension.subscriber.by_tags.builder.class: "Behat\WiremockExtension\Subscriber\ByTags\SubscriberBuilder"
 
 services:
   wiremockextension.services.collection.factory:
@@ -14,10 +16,19 @@ services:
     class: "%wiremockextension.services.collection.class%"
     factory: ["@wiremockextension.services.collection.factory", "factory"]
 
+  wiremockextension.subscriber.always.builder:
+    class: "%wiremockextension.subscriber.always.builder.class%"
+
+  wiremockextension.subscriber.by_tags.builder:
+    class: "%wiremockextension.subscriber.by_tags.builder.class%"
+
   wiremockextension.subscriber.factory:
     class: "%wiremockextension.subscriber.factory.class%"
     arguments:
       - "@wiremockextension.services.collection"
+    calls:
+      - [ registerBuilder, ["always", "@wiremockextension.subscriber.always.builder"]]
+      - [ registerBuilder, ["by_tags", "@wiremockextension.subscriber.by_tags.builder"]]
 
   wiremockextension.subscriber:
     class: "%wiremockextension.subscriber.class%"
