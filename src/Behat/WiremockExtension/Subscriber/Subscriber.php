@@ -9,9 +9,9 @@
 namespace Behat\WiremockExtension\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Event;
 use Behat\WiremockExtension\Collection\Collection;
 use Behat\WiremockExtension\Service\ServiceInterface;
+use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
 
 /**
  * Class Subscriber
@@ -44,9 +44,9 @@ class Subscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param Event $event
+     * @param BeforeScenarioTested $event
      */
-    public function resetMapping(Event $event)
+    public function resetMapping(BeforeScenarioTested $event)
     {
         /** @var ServiceInterface $service */
         foreach ($this->services as $service) {
