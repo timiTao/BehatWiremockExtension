@@ -18,19 +18,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class SubscriberBuilder implements SubscriberBuilderInterface
 {
-
     /**
      * @var array
      */
-    protected $tags;
+    protected $config;
 
     /**
-     * @param array $tags
+     * @param $config
      */
-    public function setTags($tags)
+    public function __construct($config)
     {
-        $this->tags = $tags;
+        $this->config = $config;
     }
+
 
     /**
      * @param Collection $collection
@@ -38,8 +38,11 @@ class SubscriberBuilder implements SubscriberBuilderInterface
      */
     public function build(Collection $collection)
     {
+        $tags = $this->config['wiremock']['reset_strategy']['options']['services'];
+
         $byTags = new Subscriber($collection);
-        $byTags->setCorrectTags($this->tags);
+        $byTags->setCorrectTags($tags);
+
         return $byTags;
     }
 }

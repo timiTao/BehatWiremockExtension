@@ -7,9 +7,9 @@
  */
 namespace Behat\WiremockExtension\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Behat\WiremockExtension\Collection\Collection;
 use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
+use Behat\WiremockExtension\Collection\Collection;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class AbstractSubscriber

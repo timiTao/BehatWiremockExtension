@@ -21,11 +21,14 @@ services:
 
   wiremockextension.subscriber.by_tags.builder:
     class: "%wiremockextension.subscriber.by_tags.builder.class%"
+    arguments:
+      - "%wiremockextension.config%"
 
   wiremockextension.subscriber.factory:
     class: "%wiremockextension.subscriber.factory.class%"
     arguments:
       - "@wiremockextension.services.collection"
+      - "%wiremockextension.config%"
     calls:
       - [ registerBuilder, ["always", "@wiremockextension.subscriber.always.builder"]]
       - [ registerBuilder, ["by_tags", "@wiremockextension.subscriber.by_tags.builder"]]

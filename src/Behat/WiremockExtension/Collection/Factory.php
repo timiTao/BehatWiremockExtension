@@ -35,7 +35,7 @@ class Factory
      */
     public function factory()
     {
-        $connectionsConfig = $this->parameters['wiremock']['servers'];
+        $connectionsConfig = $this->parameters['wiremock']['services'];
 
         $list = new Collection();
         foreach ($connectionsConfig as $key => $serviceConfig) {

@@ -7,8 +7,8 @@
  */
 namespace Behat\WiremockExtension\Subscriber\Always;
 
-use Behat\WiremockExtension\Service\ServiceInterface;
 use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
+use Behat\WiremockExtension\Service\ServiceInterface;
 use Behat\WiremockExtension\Subscriber\AbstractSubscriber;
 
 /**

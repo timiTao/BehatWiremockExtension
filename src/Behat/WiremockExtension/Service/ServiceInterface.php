@@ -28,12 +28,14 @@ interface ServiceInterface
 
     /**
      * Reset service: logs, mappings
+     *
      * @return void
      */
     public function resetService();
 
     /**
      * Load mappings from source
+     *
      * @return void
      */
     public function loadMappings();

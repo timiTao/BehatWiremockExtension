@@ -7,8 +7,8 @@
  */
 namespace Behat\WiremockExtension\Subscriber\ByTags;
 
-use Behat\WiremockExtension\Service\ServiceInterface;
 use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
+use Behat\WiremockExtension\Service\ServiceInterface;
 use Behat\WiremockExtension\Subscriber\AbstractSubscriber;
 
 /**
@@ -41,29 +41,23 @@ class Subscriber extends AbstractSubscriber
      */
     public function resetMapping(BeforeScenarioTested $event)
     {
-        if (!$this->holdCorrectTag($event)) {
-            return;
-        }
+        $tags = $this->getCorrectTags();
+        $services = $this->services;
+        foreach ($event->getScenario()->getTags() as $tag) {
+            if (!in_array($tag, $tags)) {
+                continue;
+            }
 
-        /** @var ServiceInterface $service */
-        foreach ($this->services as $service) {
+            $serviceAlias = array_search($tag, $tags);
+
+            if (!isset($services[$serviceAlias])) {
+                continue;
+            }
+
+            /** @var ServiceInterface $service */
+            $service = $services[$serviceAlias];
             $service->resetMapping();
             $service->loadMappings();
         }
-    }
-
-    /**
-     * @param BeforeScenarioTested $event
-     * @return bool
-     */
-    private function holdCorrectTag(BeforeScenarioTested $event)
-    {
-        foreach ($event->getScenario()->getTags() as $tag) {
-            if (in_array($tag, $this->getCorrectTags())) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

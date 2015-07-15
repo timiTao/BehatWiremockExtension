@@ -8,8 +8,9 @@
 
 namespace Behat\WiremockExtension\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Behat\WiremockExtension\Collection\Collection;
+use Behat\WiremockExtension\Exception\WiremockException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class Factory
@@ -19,22 +20,14 @@ use Behat\WiremockExtension\Collection\Collection;
 class Factory
 {
     /**
-     * Before any scenario, service will be reset
-     */
-    const STRATEGY_ALWAYS = 'always';
-    /**
-     * Before scenario that contain given tag, service will be reset
-     */
-    const STRATEGY_TAG = 'tag';
-    /**
-     * Before all scenarios in given suite, service will be reset
-     */
-    const STRATEGY_SUITE = 'suite';
-
-    /**
      * @var Collection
      */
     protected $collection;
+
+    /**
+     * @var array
+     */
+    protected $config;
 
     /**
      * @var array
@@ -43,10 +36,12 @@ class Factory
 
     /**
      * @param Collection $collection
+     * @param $config
      */
-    public function __construct(Collection $collection)
+    public function __construct(Collection $collection, $config)
     {
         $this->collection = $collection;
+        $this->config = $config;
     }
 
     /**
@@ -60,10 +55,29 @@ class Factory
 
     /**
      * @return EventSubscriberInterface
+     * @throws WiremockException
      */
     public function factory()
     {
-        return $this->builders['always']->build($this->collection);
+        $selectedStrategy = $this->getSelectedStrategyName();
+
+        if (!isset($this->builders[$selectedStrategy])) {
+            throw new WiremockException(sprintf("Given builder '%s' not exists", $selectedStrategy));
+        }
+        /** @var SubscriberBuilderInterface $builder */
+        $builder = $this->builders[$selectedStrategy];
+
+        return $builder->build($this->collection);
+    }
+
+    /**
+     * @return string
+     */
+    private function getSelectedStrategyName()
+    {
+        $strategyName = $this->config['wiremock']['reset_strategy']['name'];
+
+        return $strategyName;
     }
 
 } 
