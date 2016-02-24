@@ -30,7 +30,7 @@ We can define services and map files by:
     extensions:
         Behat\WiremockExtension\ServiceContainer\Extension:
             wiremock:
-                servers:
+                services:
                       client1:
                             base_url: http://192.168.205.11
                             mappings_path: %paths.base%/data/mapping.json
